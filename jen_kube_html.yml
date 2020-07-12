@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: apache-service
+  labels:
+    app: apache
+spec:
+  ports:
+    - nodePort: 31000
+      port: 80
+      targetPort: 80
+  selector:
+    app: apache
+  type: LoadBalancer
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: apache-pv-claim
+  labels:
+    app: apache
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+
+---
+
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: apache-pod
+  labels:
+    app: apache
+spec:
+  selector:
+    matchLabels:
+      app: apache
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: apache
+    spec:
+      containers:
+      - image: vimal13/apache-webserver-php
+        name: apache
+        ports:
+        - containerPort: 31000
+          name: apache
+        volumeMounts:
+        - name: apache-persistent-storage
+          mountPath: /var/www/html
+      volumes:
+      - name: apache-persistent-storage 
+        persistentVolumeClaim:
+          claimName: apache-pv-claim
