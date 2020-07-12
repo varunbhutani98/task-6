@@ -18,11 +18,8 @@ job("J2_groovy"){
         description("this Job will create deployment for website and expose deployment")
         
         triggers {
-        upstream {
-           upstreamProjects("J1_groovy")
-         threshold("Fail")
-        }
-        }
+	        upstream('J1_groovy', 'SUCCESS')
+	  }
 
       steps {
 	shell('''
