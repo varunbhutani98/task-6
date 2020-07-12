@@ -9,7 +9,7 @@ job("J1_groovy"){
         }
 
 	steps {
-		shell(' sudo cp -vrf * /task6/ ')
+		shell(' sudo cp -vrf * /root/task6/ ')
               }
 }
 
@@ -31,7 +31,7 @@ job("J2_groovy"){
                echo " Going to Start deployment for php code "
                sudo cd /root/task6/
 	       sudo ls
-               sudo kubectl create -f /task6/jen_kube_php.yml
+               sudo kubectl apply -f /root/task6/jen_kube_php.yml
                else
 	       echo "There is no php file"
                fi
@@ -39,7 +39,7 @@ job("J2_groovy"){
                if sudo ls /task6/  | grep html  
                echo " Going to Start deployment for html code "  
                sudo cd /root/task6/
-               sudo kubectl create -f /task6/jen_kube_html.yml
+               sudo kubectl apply -f /root/task6/jen_kube_html.yml
                else
 	       echo "There is no html file"
                fi ''')
