@@ -48,7 +48,7 @@ job("J2_groovy"){
 	{
 	  steps{
 	    shell('''
-	status=$(curl -o /dev/null -s -w "%{http_code}" http://192.168.99.101:32000)
+	status=$(curl -o /dev/null -s -w "%{http_code}" http://192.168.99.101:31000)
 	if [[ $status == 200 ]]
 	then
 	    echo "Running HTML Website"
