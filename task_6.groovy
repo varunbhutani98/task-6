@@ -30,7 +30,8 @@ job("J2_groovy"){
                then
                echo " Going to Start deployment for php code "
                sudo cd /task6/
-               sudo kubectl apply -f jen_kube_php.yml
+	       sudo ls
+               sudo kubectl create -f jen_kube_php.yml
                else
 	       echo "There is no php file"
                fi
@@ -38,7 +39,7 @@ job("J2_groovy"){
                if sudo ls /task6/  | grep html  
                echo " Going to Start deployment for html code "  
                sudo cd /task6/
-               sudo kubectl apply -f jen_kube_html.yml
+               sudo kubectl create -f jen_kube_html.yml
                else
 	       echo "There is no html file"
                fi ''')
